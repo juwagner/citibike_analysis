@@ -16,12 +16,10 @@ The project is structured into the following steps:
   - build and tune some classification models to identify user types, i.e.
   day pass users (customers) or annual members (subscribers)
 
-
 # Dataset
 
 Using the code provided in `01_citibike_data.R`, the Citi Bike data set for the
 year 2018 is downloaded, cleaned and prepared for the analysis.
-
 
 ## Getting the raw data
 
@@ -37,7 +35,6 @@ Each row is a record of one bike trip and the columns contain trip information o
   - bike ID
   - user type (daily customer or annual subscriber)
   - gender and year of birth of the user
-
 
 ## Data cleaning
 
@@ -81,7 +78,6 @@ However, since the trips with missing values are systematical errors and
 represent only a negligible fraction of the full data set, these
 trips are excluded from the analysis.
 
-
 ### Anomalous trip duration
 
 The trip duration ranges from 1.016 minutes to 325167.5 minutes, which is
@@ -112,7 +108,6 @@ Hence, for trips longer than one hour (attempted) theft or incorrect docking
 can be assumed.
 These trips are also removed from the analysis,
 
-
 ### Location of the stations
 
 The geographic coordinates of NYC are somewhere around 40 degrees latitude
@@ -131,7 +126,8 @@ There are obviously some false statements about the year of birth.
 The smallest year of birth is 1885 which means that the user would have been
 at least 133 years old.
 There are even more outliers as shown in the boxplot.
-![](./images/boxplot_birthyear.png)
+
+<img src="./images/boxplot_birthyear.png" alt="drawing" width="600"/>
 
 Without any offense there might be no user older than 70 year,
 i.e. born before 1948.
@@ -144,7 +140,6 @@ distance of standard deviation to the mean.
 On the other side, the youngest user was born in 2002 which is a
 realistic value.
 It can be assumed that users have to be at least 16 years to rent a bike.
-
 
 ### Finalize the data
 
