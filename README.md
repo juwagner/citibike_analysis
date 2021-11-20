@@ -1,7 +1,3 @@
----
-title: "Citi Bike Analysis for 2018"
----
-
 # Intro
 
 [Citi Bike](https://citibikenyc.com/homepage) is the largest bike sharing program
