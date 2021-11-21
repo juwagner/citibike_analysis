@@ -1,3 +1,8 @@
+---
+title: "test"
+---
+
+
 # Intro
 
 [Citi Bike](https://citibikenyc.com/homepage) is the largest bike sharing program
@@ -127,7 +132,9 @@ The smallest year of birth is 1885 which means that the user would have been
 at least 133 years old.
 There are even more outliers as shown in the boxplot.
 
-<img src="./images/boxplot_birthyear.png" alt="drawing" width="600"/>
+<center>
+  <img src="./images/boxplot_birthyear.png" width="600"/>
+</center>
 
 Without any offense there might be no user older than 70 year,
 i.e. born before 1948.
@@ -147,3 +154,159 @@ After the cleaning process there are still 17227208 trips left to analyze.
 For a more convenient analysis and more descriptive visualizations we add
 the additional information `date`, `month`, `dayofweek`, and `hour`,
 all with respect to the start time, to the data set.
+
+# Analysis
+
+After the cleaning process, the data is ready to get analyzied.
+The underlying code is provided in `02_citibike_analysis.R` and
+`/src/viz_functions.R`.
+
+## Citi Bike user
+
+The first thing to notice is the proportion of trips taken by customers and
+subscribers.
+There is an overbalance of subscriber trips of approximately 90% to 10% customer
+trips.
+<center>
+  ![](./images/piechart_usertype.png)
+</center>
+
+Subscribers are users with an annual membership whereas customers are users
+with a day pass.
+Subscribers are obviously habitatnts of NYC that use rental bike on a regular
+basis, for example for going to work.
+Customers are assumed to be tourists or habitants that use rental bikes only
+rarely.
+This clearly explains the overrepresentation of subscribers in the data set.
+It is reasonable to assume that the behaviour of subscribers and customers is
+totally different, wherefore the analysis considers the groups separately.
+<center>
+  ![](./images/piechart_gender_subscriber.png)
+  ![](./images/piechart_gender_customer.png)
+</center>
+
+The gender distribution for each group looks totally different.
+For subscribers, three quarter of the users are male and one quarter are female
+users.
+There is also a small amount of 2% of subscribers that did not reveal their
+gender (or do not identify as one).
+For customers, the majority of 60% is of unkonwn gender.
+For the rest, as for the subscribers, there are more male than female user.
+Not revealing the gender could be to stay more anonymous or out of laziness by
+filling out a form.
+For both cases it is reasonable to assume that it concerns the customers much more.
+Becoming an annual member requires much more information than gender, such as
+address or billing account data, such that there is only limited reason for
+subscribers to hide their gender.
+
+The distribution of year of birth looks unsuspicious except for the massiv
+overrepresentation of `birth_year == 1969`.
+<center>
+  ![](./images/barchart_birthyear.png)
+</center>
+
+Zooming into the user types reveals that that the count of users born in 1969
+is increased for the subscribers but is mainly driven by the customers.
+By also taking the gender into account it is very suspcious that the combination
+of `birth_year == 1969` and `gender == "unkown"` is heavily overrepresented.
+<center>
+  ![](./images/barchart_birthyear_usertype.png)
+  ![](./images/barchart_birthyear_gender.png)
+</center>
+
+Or to put it the other way, nearly all users that hide their gender also state
+that they where born in 1969.
+Finally, the restriction to the year 1969 shows that the `birth_year == 1969`
+and `gender == "unkown"` combination is definitely the main choice for customers
+but also the overrepresentation of the subscribers born in 1969 shows this
+specific combination.
+<center>
+  ![](./images/barchart_1969.png)
+</center>
+
+A possible explanation is that `birth_year == 1969` and `gender == "unkown"`
+could be the default value in an online form.
+A subscriber, that has to fill in further information is also willing to change
+the default values.
+A customer by contrast has no reason to change these values at all.
+
+## Trip information
+
+The next question to answer is when trips are taken.
+<center>
+  ![](./images/barchart_month.png)
+  ![](./images/barchart_weekday.png)
+  ![](./images/barchart_hour.png)
+</center>
+
+There is no supsrise that there are much more trips taken in warmer month.
+This holds true for both user groups.
+Subscribers prefer to take trips during the week whereas customers take more
+trips at weekends.
+This backs up the assumption that subscribers use the bike for going to work and
+customers for rather touristic activities.
+This becomes even more clear from the trips taken per hour.
+In both user groups there are more trips taken throughout the day than at night.
+The distribution for the customers looks like a normal distribution but for the
+subscribers there are significant peaks araound 8 a.m and 6 p.m. which is during
+rush hour.
+Splitting the picture further into day of week and hour yields the following
+heatmaps.
+<center>
+  ![](./images/heatmap_rushhour_subscriber.png)
+  ![](./images/heatmap_rushhour_customer.png)
+</center>
+
+It becomes obvious that the main usage time from subscribers is during rush hour
+on weekdays and for subscribers it is during the day at weekends.
+
+## Trip duration
+
+Taking a look into how trips take, there is again a totally different picture
+for both groups.
+<center>
+  ![](./images/violin_tripduration.png)
+  ![](./images/violin_tripduration_weekday.png)
+   ![](./images/line_avg_tripduration.png)
+</center>
+
+Subscriber trips are rather short even though they have a free use for 45 minutes.
+But since they are annual members, there is no need to optimize the usage time.
+They use the rental bikes pragmatically, e.g. for going to work.
+Customers trips on the other hand usually take much longer.
+They are not in a hurry and take trips for fun and even try to max out their
+usage time.
+The behaviour for both groups does not change for different days of the week.
+And even for different month the (average) usage time stays nearly the same.
+
+## Most popular stations
+
+<center>
+  ![](./images/barchart_stations.png)
+</center>
+<center>
+  ![](./images/barchart_stations_subscriber.png)
+  ![](./images/barchart_stations_customer.png)
+</center>
+
+The most popular station by far is, which is a public square in Manhattan.
+For the both user groups, however, the popularity of stations differ.
+It is not suprising, that subscribers use stations close to squares and office
+buildings whereas customers favor stations close to parks or shopping centers.
+
+## Most popular trips
+
+<center>
+  ![](./images/barchart_trips.png)
+</center>
+
+<center>
+  ![](./images/barchart_trips_subscriber.png)
+  ![](./images/barchart_trips_customer.png)
+</center>
+
+Benath popular stations, there are also popular trips.
+Again, these differ for both user groups.
+An interessting point is, that some of the most popular customer trips are
+circular trips.
+They are maybe used for sightseeing or for simply making a tour.
