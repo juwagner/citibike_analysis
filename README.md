@@ -276,11 +276,11 @@ And even for different month the (average) usage time stays nearly the same.
 ## Most popular stations
 
 <p align="center">
-  <img src="./images/barchart_stations.png"/ height=300>
+  <img src="./images/barchart_stations.png"/ height=250>
 </p>
 <p align="center">
-  <img src="./images/barchart_stations_subscriber.png"/ height=300>
-  <img src="./images/barchart_stations_customer.png"/ height=300>
+  <img src="./images/barchart_stations_subscriber.png"/ height=250>
+  <img src="./images/barchart_stations_customer.png"/ height=250>
 </p>
 
 The most popular station by far is `Pershing Square North`, which is a public square in Manhattan.
@@ -291,11 +291,11 @@ buildings whereas customers favor stations close to parks or shopping centers.
 ## Most popular trips
 
 <p align="center">
-  <img src="./images/barchart_trips.png"/ height=300>
+  <img src="./images/barchart_trips.png"/ height=250>
 </p>
 <p align="center">
-  <img src="./images/barchart_trips_subscriber.png"/ height=300>
-  <img src="./images/barchart_trips_customer.png"/ height=300>
+  <img src="./images/barchart_trips_subscriber.png"/ height=250>
+  <img src="./images/barchart_trips_customer.png"/ height=250>
 </p>
 
 Beneath popular stations, there are also popular trips.
